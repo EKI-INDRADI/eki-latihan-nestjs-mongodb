@@ -106,7 +106,7 @@ nest --version
 
 
 <details>
-  <summary>20211219-0046-MYSQL-TO-MIGRATION-MONGODB</summary>
+  <summary>20211219-0046-MYSQL-TO-MONGODB</summary>
 
 ```bash
 /046
