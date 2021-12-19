@@ -102,7 +102,7 @@ nest --version
 
 ## 3. CLI & note
 
-## ==== STAGE 11 = MIGRATION MYSQL (TypeORM) TO MONGODB (Mongoose)
+## ==== STAGE 11 = MIGRATION MYSQL TO MONGODB
 
 
 <details>
@@ -208,7 +208,7 @@ HASIL : https://github.com/EKI-INDRADI/eki-latihan-nestjs-mongodb
 
 
 
-## ==== / STAGE 11 = MIGRATION MYSQL (TypeORM) TO MONGODB (Mongoose)
+## ==== / STAGE 11 = MIGRATION MYSQL TO MONGODB
 
 
 
