@@ -1,0 +1,253 @@
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
+</p>
+
+[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+[circleci-url]: https://circleci.com/gh/nestjs/nest
+
+  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+    <p align="center">
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
+<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
+<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
+<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
+<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
+<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
+  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
+    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
+  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
+</p>
+  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
+  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+
+## Description
+
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+
+## Installation
+
+```bash
+$ npm install
+```
+
+## Running the app
+
+```bash
+# development
+$ npm run start
+
+# watch mode
+$ npm run start:dev
+
+# production mode
+$ npm run start:prod
+```
+
+## Test
+
+```bash
+# unit tests
+$ npm run test
+
+# e2e tests
+$ npm run test:e2e
+
+# test coverage
+$ npm run test:cov
+```
+
+## Support
+
+Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+
+## Stay in touch
+
+- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
+- Website - [https://nestjs.com](https://nestjs.com/)
+- Twitter - [@nestframework](https://twitter.com/nestframework)
+
+## License
+
+Nest is [MIT licensed](LICENSE).
+
+##  EKI NOTE :
+
+"sebelumnya terimakasih kepada "Web App Project" Youtube Channel saya tambahkan penjelasan beliau & disini saya tambahkan juga pemahaman typescript saya & beberapa informasi penting dari video tutorial pada comment code" ,
+
+"pentingnya dokumentasi karena disini saya memiliki pengalaman Research & Development tanpa dokumentasi, tanpa portfolio, tanpa bukti nyata adalah 'BULLSHIT' ".
+
+## 1. installation Docker, Mongodb
+```bash
+install vm alpine + docker
+https://github.com/EKI-INDRADI/eki-latihan-vm-alpine-docker-portable
+
+install Docker, Mongodb
+https://github.com/EKI-INDRADI/eki-latihan-docker-mongodb (mongodb 5.xx)
+
+mongosh admin -u 'root' -p 'masuk123'
+show dbs
+use simple_pos
+```
+
+## 2. install nodejs & nestjs
+
+```bash
+install nodejs   (https://nodejs.org)
+
+npm i -g @nestjs/cli
+nest --version
+```
+
+## 3. CLI & note
+
+## ==== STAGE 11 = MIGRATION MYSQL (TypeORM) TO MONGODB (Mongoose)
+
+<details>
+  <summary>20211219-0046-MYSQL-TO-MIGRATION-MONGODB</summary>
+
+```bash
+/046
+
+// ===================== MIGRATION MYSQL TO MONGODB
+1. install mongodb database
+
+2. create database simple_pos
+
+3. npm uninstall @nestjs/typeorm typeorm mysql2
+
+4. delete node_modules
+
+5. npm i
+
+6. npm install --save @nestjs/mongoose mongoose
+
+7. rubah .env 
+
+--- before
+
+MYSQL_HOST = '127.0.0.1'
+MYSQL_PORT = '3400'
+MYSQL_USER = 'root'
+MYSQL_PASSWORD = 'masuk123'
+MYSQL_DATABASE = 'simple_pos'
+JWT_SECRET_KEY= 'eki-secret-key'
+
+--- /before
+
+--- after
+
+MONGODB_HOST=127.0.0.1
+MONGODB_PORT=7000
+MONGODB_USER=root
+MONGODB_PASSWORD=masuk123
+MONGODB_DATABASE=simple_pos
+JWT_SECRET_KEY=eki-secret-key
+
+--- /after
+
+8. rubah code pada src\user\user.controller.ts
+// @ApiBearerAuth()
+// @UseGuards(JwtGuard)
+@Controller('user')
+
+------------------------
+
+pasangkan  
+
+@ApiBearerAuth()
+@UseGuards(JwtGuard)
+
+pada setiap controller src\user\user.controller.ts , kecuali :
+
+@Post()
+create(@Body() ....
+...
+...
+
+untuk keperluan membuat account
+
+10. update src\app.module.ts
+11. update src\<resource_name>\dto\*
+12. update src\<resource_name>\entities\*
+13. update src\<resource_name>\<resource_name>.service.ts
+
+lalu buat pada http://localhost:3000/api-docs/
+POST /USER 
+{
+  "nama_user": "stringst",
+  "email": "string@mail.com",
+  "username": "stringst",
+  "password": "stringst"
+}
+
+
+//=========================== WAJIB REBUILD DIST FILE
+
+delete /dist files
+
+---- build kembali file /dist nya
+npm run build
+----
+
+//=========================== /WAJIB REBUILD DIST FILE
+
+15. selesai maka seluruh table akan otomatis terbuat, dan langsung dapat digunakan, persis seperti pada MySQL
+
+// ===================== MIGRATION MYSQL TO MONGODB
+
+```
+
+</details>
+
+
+
+## ==== / STAGE 11 = MIGRATION MYSQL (TypeORM) TO MONGODB (Mongoose)
+
+
+
+mohon maaf lama update, karena tidak memiliki banyak waktu karena saya bekerja pada salah 1 perusahaan startup dengan waktu kerja 11-12 jam per hari
+
+semoga dokumentasi ini bermanfaat cukup liat setiap branch nya, akan langsung paham (sudah dibuat komentar code untuk di pahami juga)
+
+end video  04:24:41 [pagenation rekening done]
+
+stage 8 - update manual raw query SQL
+
+stage 9 - migrasi MySql to PostgreSql
+
+stage 10 - migrasi express adapter nestjs to fastify adapter nestjs
+
+stage 11 - migrasi MySql (TypeORM) to Mongodb (Moongose) [INPROGRESS]
+
+ 
+## REFERENSI :
+
+```bash
+https://nestjs.com/
+https://docs.nestjs.com/techniques/database
+https://docs.nestjs.com/techniques/mongodb
+https://tkssharma.com/nestjs-with-typeORM-mongoose-and-mysql-for-api-development/
+https://stackoverflow.com/questions/53646042/how-to-inject-model-if-the-model-is-in-the-root-module-only
+https://dev.to/carlomigueldy/building-a-restful-api-with-nestjs-and-mongodb-mongoose-2165
+
+https://github.com/EKI-INDRADI/eki-latihan-vm-alpine-docker-portable
+
+https://github.com/EKI-INDRADI/eki-latihan-docker-phpmyadmin-mariadb
+https://github.com/EKI-INDRADI/eki-latihan-nestjs-mysql
+https://github.com/EKI-INDRADI/eki-latihan-nestjs-fastify-mysql
+
+https://github.com/EKI-INDRADI/eki-latihan-docker-postgresql
+https://github.com/EKI-INDRADI/eki-latihan-nestjs-postgresql
+https://github.com/EKI-INDRADI/eki-latihan-nestjs-fastify-postgresql 
+
+https://github.com/EKI-INDRADI/eki-latihan-docker-mongodb
+https://github.com/EKI-INDRADI/eki-latihan-nestjs-mongodb (INPROGRESS)
+https://github.com/EKI-INDRADI/eki-latihan-nestjs-fastify-mongodb (WAITING LIST)
+
+```
+
+## EKI INDRADI
+
+"TIME > KNOWLEDGE > MONEY". #STILL_ONE_DIGIT
