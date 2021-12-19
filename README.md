@@ -104,6 +104,7 @@ nest --version
 
 ## ==== STAGE 11 = MIGRATION MYSQL (TypeORM) TO MONGODB (Mongoose)
 
+
 <details>
   <summary>20211219-0046-MYSQL-TO-MIGRATION-MONGODB</summary>
 
@@ -195,11 +196,15 @@ npm run build
 
 15. selesai maka seluruh table akan otomatis terbuat, dan langsung dapat digunakan, persis seperti pada MySQL
 
+HASIL : https://github.com/EKI-INDRADI/eki-latihan-nestjs-mongodb
+
 // ===================== MIGRATION MYSQL TO MONGODB
 
 ```
 
 </details>
+
+
 
 
 
