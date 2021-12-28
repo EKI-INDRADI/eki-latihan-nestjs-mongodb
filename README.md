@@ -356,11 +356,21 @@ stage 11 - migrasi MySql (TypeORM) to Mongodb (Moongose) [INPROGRESS]
 
 ```bash
 https://nestjs.com/
+
 https://docs.nestjs.com/techniques/database
+
 https://docs.nestjs.com/techniques/mongodb
+
 https://tkssharma.com/nestjs-with-typeORM-mongoose-and-mysql-for-api-development/
+
 https://stackoverflow.com/questions/53646042/how-to-inject-model-if-the-model-is-in-the-root-module-only
+
 https://dev.to/carlomigueldy/building-a-restful-api-with-nestjs-and-mongodb-mongoose-2165
+
+https://stackoverflow.com/questions/60062318/how-to-inject-service-to-validator-constraint-interface-in-nestjs-using-class-va
+
+https://mongoosejs.com/docs/api.html#Connection
+
 
 https://github.com/EKI-INDRADI/eki-latihan-vm-alpine-docker-portable
 
