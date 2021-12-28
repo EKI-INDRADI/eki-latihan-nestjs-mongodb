@@ -4,40 +4,60 @@ export type UserDocument = User & Document;// Mirip DTO, tapi masih lebih keren 
 
 @Schema()
 export class User {
+
     // kok bikin id lagi ? 
     // karena tutorial ini adalah 
     // lanjutan dari https://github.com/EKI-INDRADI
     // agar memudahkan migrasi dari TypeORM yang menggunakan id
 
-    //======================== EXAMAPLE AUTO GENERATE
+    //======================== AUTO GENERATE
 
     @Prop({
         type: Number,
-        default: Number(
-            new Date().getFullYear()
-            + ("0" + (new Date().getMonth() + 1)).slice(-2)
-            + ("0" + new Date().getDate()).slice(-2)
-            + ("0" + new Date().getMinutes()).slice(-2)
-            + ("0" + new Date().getSeconds()).slice(-2)
-            + ("0" + new Date().getMilliseconds()).slice(-3)
-        ) //Date.now()
+        default: () =>  // di buat arrow function agar ketika generate data selalu mengecek function kembali (generate date.now())
+            Number(
+                new Date().getFullYear()
+                + ("0" + (new Date().getMonth() + 1)).slice(-2)
+                + ("0" + new Date().getDate()).slice(-2)
+                + ("0" + new Date().getMinutes()).slice(-2)
+                + ("0" + new Date().getSeconds()).slice(-2)
+                + ("0" + new Date().getMilliseconds()).slice(-3)
+            )
     })
-    id: number
+    id: Number
+
+    //======================== /AUTO GENERATE
+
+    // =================== MONGOOSE PROGRESSIVE FRAMEWORK
+    // @Prop({
+    //     type: Number,
+    //     default: () =>  
+    //         Number(Date.now()) // karena berupa arrow function maka Date.now() dibaca ketika kembali ketika ada data masuk
+    // })
+    // id1: Number
 
     // @Prop({
+    //     type: Number,
+    //     default:Number(Date.now()) //  Date.now() dibaca ketika backend running di awal
+    // })
+    // id2: Number
+    // =================== /MONGOOSE PROGRESSIVE FRAMEWORK
+
+
+    //======================== EXAMAPLE AUTO GENERATE
+    // @Prop({
     //     type: String,
-    //     default: 'USR' + "/"
+    //     default:  () => 'USR' + "/"
     //         + new Date().getFullYear()
     //         + ("0" + (new Date().getMonth() + 1)).slice(-2)
     //         + ("0" + new Date().getDate()).slice(-2) + "/"
     //         + Date.now()
     // })
-    // id: string
-
+    // id2: string
 
     // @Prop({
     //     type: String,
-    //     default: 'USR/'
+    //     default:  () => 'USR/'
     //         + new Date().getFullYear()
     //         + ("0" + (new Date().getMonth() + 1)).slice(-2)
     //         + ("0" + new Date().getDate()).slice(-2) + "-"
@@ -46,9 +66,9 @@ export class User {
     //         + ("0" + new Date().getMilliseconds())
     //         // + ("0" + new Date().getSeconds()).slice(-2)
     // })
-    // id: string
+    // id2: string
 
-    // @Prop({ type: Number, default: Number(Date.now()) })
+    // @Prop({ type: Number, default: () => Number(Date.now()) })
     // id2: number
 
     // @Prop()
@@ -57,7 +77,7 @@ export class User {
     //     default: 'EKITESTING'
     // }
 
-    //======================== EXAMAPLE AUTO GENERATE
+    //======================== /EXAMAPLE AUTO GENERATE
 
     @Prop()
     nama_user: string
@@ -71,10 +91,10 @@ export class User {
     @Prop()
     password: string
 
-    @Prop({ type: Date, default: Number(Date.now()) })
+    @Prop({ type: Date, default: () => Date.now() })
     create_at: Date
 
-    @Prop({ type: Date, default: Number(Date.now()) })
+    @Prop({ type: Date, default: () => Date.now() })
     update_at?: Date
 
     // @Prop()

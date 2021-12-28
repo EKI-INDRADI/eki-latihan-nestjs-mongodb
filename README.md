@@ -220,6 +220,29 @@ NOTE : migrasi perlahan karena depedency yang digunakan sedikit berbeda TypeORM 
 
 </details>
 
+<details>
+  <summary>20211228-0046-MYSQL-TO-MONGODB-002</summary>
+
+
+```bash
+// AUTO GENERATE ARROW FUNCTION MONGOOSE
+
+    // =================== MONGOOSE PROGRESSIVE FRAMEWORK
+    @Prop({
+        type: Number,
+        default: () =>  
+            Number(Date.now()) // karena berupa arrow function maka Date.now() dibaca kembali ketika ada data masuk
+    })
+    id1: Number
+
+    @Prop({
+        type: Number,
+        default:Number(Date.now()) // Date.now() dibaca ketika backend running diawal value akan selalu sama
+    })
+    id2: Number
+ // =================== /MONGOOSE PROGRESSIVE FRAMEWORK
+```
+</details>
 
 
 ## ==== / STAGE 11 = MIGRATION MYSQL TO MONGODB
