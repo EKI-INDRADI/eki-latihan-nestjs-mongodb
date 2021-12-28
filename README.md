@@ -249,7 +249,8 @@ NOTE : migrasi perlahan karena depedency yang digunakan sedikit berbeda TypeORM 
 
 
 ```bash
-// update custom validator IsUnique for Mongoose Version
+// update custom validator IsUnique for Mongoose Version 
+// (sekaligus contoh inject connection mongoose)
 // berikut perbedaan dari IsUnique validator TypeORM Version MySql / PostgreSql
 
 update src\main.ts
@@ -260,6 +261,12 @@ useContainer(app.select(AppModule), { fallbackOnErrors: true });
 // ternyata harus menggunakan useContainer pada main.ts
 // bertujuan agar dapat menggunakan depedency / mongoose connection / service / etc
 // pada pada custom validator  
+
+update src\app.module.ts (enable isUnique)
+
+update src\user\dto\create-user.dto.ts (update code)
+
+update src\etc\validator\unique-validator.ts (update code)
 
 // version 1
 import { Injectable } from '@nestjs/common';
@@ -275,6 +282,8 @@ import { Model, Schema } from 'mongoose';
 // version 3
 import { Injectable } from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
+
+note untuk version 3 perlu update src\user\user.service.ts
 
 export class UniqueValidator implements ValidatorConstraintInterface {
   ...
