@@ -4,8 +4,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { User, UserSchema } from './user/entities/user.entity';
 import { UserModule } from './user/user.module';
-// import { ExistValidator } from './etc/validator/exist-validator';
-// import { UniqueValidator } from './etc/validator/unique-validator';
+import { ExistValidator } from './etc/validator/exist-validator';
+import { UniqueValidator } from './etc/validator/unique-validator';
 import { AuthModule } from './auth/auth.module';
 // import { ProdukModule } from './produk/produk.module';
 // import { Produk, ProdukSchema } from './produk/entities/produk.entity';
@@ -45,6 +45,6 @@ import { MongooseModule } from '@nestjs/mongoose';
   ],
   controllers: [AppController],
   // providers: [AppService, ExistValidator, UniqueValidator, PageService],
-  providers: [AppService],
+  providers: [AppService, ExistValidator, UniqueValidator]
 })
 export class AppModule { }

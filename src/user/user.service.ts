@@ -33,7 +33,7 @@ export class UserService {
   async update(id: number, updateUserDto: UpdateUserDto) {
     updateUserDto.id = id
 
-    let res_json : any= {}
+    let res_json: any = {}
 
     if (updateUserDto.password) {
       updateUserDto.password = this.hash(updateUserDto.password)
@@ -71,5 +71,27 @@ export class UserService {
     return valid
   }
 
+  async manualQuery(variant: string, condition: any) {
+
+    let res_json: any = {}
+    let result: any = null
+
+    try {
+      if (variant) {
+        result = await this.userRepo[variant](condition).exec()
+        res_json.statusCode = 1
+        res_json.data = result
+      } else {
+        res_json.statusCode = 0
+        res_json.message = "manual query error, variant is missing"
+      }
+    } catch (error) {
+      res_json.statusCode = 0
+      res_json.message = error.message
+    }
+
+    return res_json
+
+  }
 
 }

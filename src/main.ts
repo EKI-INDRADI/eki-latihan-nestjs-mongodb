@@ -2,17 +2,23 @@ import { BadRequestException, ValidationError, ValidationPipe } from '@nestjs/co
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerCustomOptions, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
-import * as fs from 'fs';
+import { useContainer } from 'class-validator';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  useContainer(app.select(AppModule), { fallbackOnErrors: true });   
+  // biar bisa panggil service / connection / repository pada custom validator
+  // https://stackoverflow.com/questions/60062318/how-to-inject-service-to-validator-constraint-interface-in-nestjs-using-class-va
+
+
   app.useGlobalPipes(new ValidationPipe({
-    whitelist: true, // validasi berdasarkan DTO
+    whitelist: true, 
     forbidUnknownValues: true,
-    transform: true, //  supaya ada message errornya.
-    validateCustomDecorators: true, // karena ada validasi buatan sendiri, IsUnique src/etc/validator/unique-validator, pada src\user\dto\create-user.dto.ts
-    transformOptions: {  // karena ada validasi buatan sendiri, sda
-      enableImplicitConversion: true  // karena ada validasi buatan sendiri, sda
+    transform: true, 
+    validateCustomDecorators: true, 
+    transformOptions: {  
+      enableImplicitConversion: true  
     }
 
 
@@ -23,7 +29,7 @@ async function bootstrap() {
     .setTitle('OPEN-API POS')
     .setDescription('Documentasi untuk api point of sale')
     .setVersion('1.3')
-    .addBearerAuth()  // karena token disini menggunakan Bearer Aeuth , ada banyak security contoh lainnya : // .addApiKey('x-access-token') // .addBasicAuth
+    .addBearerAuth()  
     .build()
 
   const configCustomSwagger: SwaggerCustomOptions = {
@@ -31,10 +37,8 @@ async function bootstrap() {
   }
   const swaggerDocument = SwaggerModule.createDocument(app, configSwagger)
 
-  // fs.writeFileSync("./swagger-spec.json", JSON.stringify(swaggerDocument)); // generate swagger json
 
   SwaggerModule.setup('api-docs', app, swaggerDocument, configCustomSwagger)
-  // api-docs = routes
   //============== /SWAGGER
   await app.listen(3000);
 }

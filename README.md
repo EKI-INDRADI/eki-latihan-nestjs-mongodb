@@ -244,6 +244,85 @@ NOTE : migrasi perlahan karena depedency yang digunakan sedikit berbeda TypeORM 
 ```
 </details>
 
+<details>
+  <summary>20211228-0046-MYSQL-TO-MONGODB-003</summary>
+
+
+```bash
+// update custom validator IsUnique for Mongoose Version
+// berikut perbedaan dari IsUnique validator TypeORM Version MySql / PostgreSql
+
+update src\main.ts
+
+useContainer(app.select(AppModule), { fallbackOnErrors: true });  
+
+// masalah ini cukup lama menemukannya
+// ternyata harus menggunakan useContainer pada main.ts
+// bertujuan agar dapat menggunakan depedency / mongoose connection / service / etc
+// pada pada custom validator  
+
+// version 1
+import { Injectable } from '@nestjs/common';
+import { InjectConnection } from '@nestjs/mongoose';
+import { Connection } from 'mongoose';
+
+// version 2
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { User } from 'src/user/entities/user.entity';
+import { Model, Schema } from 'mongoose';
+
+// version 3
+import { Injectable } from '@nestjs/common';
+import { UserService } from 'src/user/user.service';
+
+export class UniqueValidator implements ValidatorConstraintInterface {
+  ...
+  ...
+
+    constructor(
+      // version 1
+      @InjectConnection() private MongoDbConnection: Connection,
+
+      // version 2
+      // @InjectModel(User.name) private userRepo: Model<User>,
+
+      // version 3
+      // private userService: UserService
+    ) { }
+    
+  ...
+  ...
+}
+
+
+async validate(value: any, args: ValidationArguments) {
+  ...
+  ...
+
+    //version 1 (menggunakan service)
+    check = await this.userService.manualQuery('findOne', findCondition)
+
+    //version 2 (menggunakan model repository)
+    check = await this.userRepo.findOne(findCondition);
+
+    //version 3 (menggunakan mongo conection langsung)
+    check = await this.MongoDbConnection.model(args.constraints[0]).findOne(findCondition)
+
+  ...
+  ...
+}
+       
+reference : 
+https://stackoverflow.com/questions/60062318/how-to-inject-service-to-validator-constraint-interface-in-nestjs-using-class-va
+
+https://docs.nestjs.com/techniques/mongodb
+
+https://mongoosejs.com/docs/api.html#Connection
+
+```
+</details>
+
 
 ## ==== / STAGE 11 = MIGRATION MYSQL TO MONGODB
 

@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto, UserIdDto } from './dto/create-user.dto';
+import { CreateUserDto, UserIdDto, UserManualQueryDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtGuard } from 'src/auth/jwt.guard';
@@ -43,4 +43,18 @@ export class UserController {
   remove(@Param() get_UserIdDto: UserIdDto) {
     return this.userService.remove(get_UserIdDto.id);
   }
+
+  @Post('manual-query')
+  async manualQuery(@Body() req_body: UserManualQueryDto) {  //test
+    // {
+    //   "variant": "findOne",
+    //   "condition": { "username" : "stringst"}
+    // }
+    let res_json = {}
+    res_json = await this.userService.manualQuery(req_body.variant, req_body.condition)
+    return res_json
+  }
+
+
+
 }
