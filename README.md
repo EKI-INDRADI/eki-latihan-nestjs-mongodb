@@ -321,7 +321,19 @@ async validate(value: any, args: ValidationArguments) {
   ...
   ...
 }
-       
+
+hasil :
+
+
+{
+  "statusCode": 400,
+  "message": [
+    "email string5@mail.com sudah digunakan",
+    "username stringst5 sudah digunakan"
+  ],
+  "error": "Bad Request"
+}
+     
 reference : 
 https://stackoverflow.com/questions/60062318/how-to-inject-service-to-validator-constraint-interface-in-nestjs-using-class-va
 
@@ -332,6 +344,51 @@ https://mongoosejs.com/docs/api.html#Connection
 ```
 </details>
 
+
+<details>
+  <summary>20211228-0046-MYSQL-TO-MONGODB-004</summary>
+
+```bash
+// update custom validator IsExist for Mongoose Version 
+// (sekaligus contoh inject connection mongoose)
+// berikut perbedaan dari IsExist validator TypeORM Version MySql / PostgreSql
+
+update src\etc\validator\exist-validator.ts
+
+...
+...
+import { InjectConnection } from '@nestjs/mongoose';
+import { Connection } from 'mongoose';
+
+
+export class ExistValidator implements ValidatorConstraintInterface {
+    constructor(
+        @InjectConnection() private MongoDbConnection: Connection,
+    ) { }
+
+    async validate(value: any, args: ValidationArguments) {
+        let findCondition = { [args.constraints[1]]: args.value }
+        let check: any = null
+        check = await this.MongoDbConnection.model(args.constraints[0]).findOne(findCondition)
+        
+        if (check) return true
+        return false
+    }
+...
+...
+
+hasil : 
+{
+"statusCode": 400,
+"message": [
+  "id 202112283300602 tidak ditemukan" << contoh IsExists
+  ],
+  "error": "Bad Request"
+}
+
+```
+
+</details>
 
 ## ==== / STAGE 11 = MIGRATION MYSQL TO MONGODB
 
