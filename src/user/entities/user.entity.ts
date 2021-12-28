@@ -32,7 +32,7 @@ export class User {
     // @Prop({
     //     type: Number,
     //     default: () =>  
-    //         Number(Date.now()) // karena berupa arrow function maka Date.now() dibaca ketika kembali ketika ada data masuk
+    //         Number(Date.now()) // karena berupa arrow function maka Date.now() dibaca kembali ketika ada data masuk
     // })
     // id1: Number
 
