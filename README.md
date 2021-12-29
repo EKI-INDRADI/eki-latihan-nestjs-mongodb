@@ -390,6 +390,195 @@ hasil :
 
 </details>
 
+
+<details>
+  <summary>20211229-0046-MYSQL-TO-MONGODB-005</summary>
+
+```bash
+// update modular pagenation / pagenator (auto injection) MongoDb (mongoose)
+// parameter bisa menggunakan skip-limit atau page-limit keduanya support,
+// karena ada beberapa frontend yang menggunakan konsep page dan limit , 
+// ada juga yang masih menggunakan skip dan limit, 
+// namun saya rekomendasikan sebaiknya menggunakan page karena implementasi di frontend lebih mudah
+//
+// dan ini sekaligus auto validation schema swagger + custom example dan description swagger nya
+//
+// (sekaligus contoh inject connection mongoose menggunakan function agar lebih modular)
+// berikut contoh perbedaan dari autogenerate pagenator / pagenation dari MySql / PostgreSql (TypeORM)
+
+
+update src\etc\dto\page-dto.ts
+update src\etc\service\page\*
+update src\etc\service\page\page.service.ts
+
+
+contoh implementasi pada get user:
+update src\user\dto\create-user.dto.ts
+update src\user\user.controller.ts
+update src\user\user.service.ts
+
+
+---------contoh swagger pada parameternya (dapat dicustom)
+{
+  "page": "1 (number) , jangan gunakan page ketika menggunakan skip",
+  "skip": "0 (number) , jangan gunakan skip ketika menggunakan page",
+  "limit": 10,
+  "sort": {
+    "create_at": -1
+  },
+  "projection": {
+    "_id": 0,
+    "password": 0,
+    "__v": 0
+  },
+  "id": 202112295441296,
+  "nama_user": "",
+  "email": "",
+  "username": "ing"
+}
+---------/contoh swagger pada parameternya (dapat dicustom)
+
+---------contoh menggunakan page-limit
+request = 
+{
+  "page": 1,
+  "limit": 5,
+  "sort": {
+    "create_at": -1
+  },
+  "projection": {
+    "_id": 0,
+    "password": 0,
+    "__v": 0
+  },
+  "nama_user": "",
+  "email": "",
+  "username": "ing"
+}
+
+respose =
+{
+  "total": 10,
+  "page": 1,
+  "pages": 2,
+  "data": [
+    {
+      "username": "ekitesting3",
+      "email": "ekitesting3@mail.com",
+      "nama_user": "ekitesting3",
+      "update_at": "2021-12-29T11:51:38.361Z",
+      "create_at": "2021-12-29T11:51:38.361Z",
+      "id": 202112295138361
+    },
+    {
+      "username": "ekitesting2",
+      "email": "ekitesting2@mail.com",
+      "nama_user": "ekitesting2",
+      "update_at": "2021-12-29T11:51:31.725Z",
+      "create_at": "2021-12-29T11:51:31.725Z",
+      "id": 202112295131725
+    },
+    {
+      "username": "ekitesting1",
+      "email": "ekitesting1@mail.com",
+      "nama_user": "ekitesting1",
+      "update_at": "2021-12-29T11:51:23.965Z",
+      "create_at": "2021-12-29T11:51:23.965Z",
+      "id": 202112295123965
+    },
+    {
+      "username": "ekitesting",
+      "email": "ekitesting@mail.com",
+      "nama_user": "ekitesting",
+      "update_at": "2021-12-29T11:51:15.864Z",
+      "create_at": "2021-12-29T11:51:15.864Z",
+      "id": 202112295115864
+    },
+    {
+      "username": "stringst",
+      "email": "string@mail.com",
+      "nama_user": "stringst",
+      "update_at": "2021-12-29T11:50:59.039Z",
+      "create_at": "2021-12-29T11:50:59.040Z",
+      "id": 202112295059040
+    }
+  ]
+}
+---------/contoh menggunakan page-limit
+
+
+---------contoh menggunakan skip-limit
+request = 
+{
+  "skip": 5,
+  "limit": 5,
+  "sort": {
+    "create_at": -1
+  },
+  "projection": {
+    "_id": 0,
+    "password": 0,
+    "__v": 0
+  },
+  "nama_user": "",
+  "email": "",
+  "username": "ing"
+}
+
+respose =
+{
+  "total": 10,
+  "page": 2,
+  "pages": 2,
+  "data": [
+    {
+      "username": "ekitesting10",
+      "email": "ekitesting10@mail.com",
+      "nama_user": "ekitesting10",
+      "update_at": "2021-12-29T11:52:10.538Z",
+      "create_at": "2021-12-29T11:52:10.538Z",
+      "id": 202112295210538
+    },
+    {
+      "username": "ekitesting7",
+      "email": "ekitesting7@mail.com",
+      "nama_user": "ekitesting7",
+      "update_at": "2021-12-29T11:52:01.003Z",
+      "create_at": "2021-12-29T11:52:01.003Z",
+      "id": 20211229520103
+    },
+    {
+      "username": "ekitesting6",
+      "email": "ekitesting6@mail.com",
+      "nama_user": "ekitesting6",
+      "update_at": "2021-12-29T11:51:55.063Z",
+      "create_at": "2021-12-29T11:51:55.063Z",
+      "id": 202112295155063
+    },
+    {
+      "username": "ekitesting5",
+      "email": "ekitesting5@mail.com",
+      "nama_user": "ekitesting5",
+      "update_at": "2021-12-29T11:51:49.276Z",
+      "create_at": "2021-12-29T11:51:49.276Z",
+      "id": 202112295149276
+    },
+    {
+      "username": "ekitesting4",
+      "email": "ekitesting4@mail.com",
+      "nama_user": "ekitesting4",
+      "update_at": "2021-12-29T11:51:43.486Z",
+      "create_at": "2021-12-29T11:51:43.486Z",
+      "id": 202112295143486
+    }
+  ]
+}
+---------/contoh menggunakan skip-limit
+```
+
+</details>
+
+
 ## ==== / STAGE 11 = MIGRATION MYSQL TO MONGODB
 
 

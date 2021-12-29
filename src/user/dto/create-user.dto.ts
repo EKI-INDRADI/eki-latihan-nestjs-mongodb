@@ -1,9 +1,10 @@
-import { IsEmail, IsNotEmpty, IsOptional, IsString, MaxLength, MinLength } from "class-validator"
+import { IsDate, IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength, MinLength } from "class-validator"
 import { User } from "../entities/user.entity"
 import { IsUnique } from "src/etc/validator/unique-validator"
 import { IsExist } from "src/etc/validator/exist-validator"
-import { OmitType, PickType } from "@nestjs/swagger"
+import { ApiHideProperty, OmitType, PickType } from "@nestjs/swagger"
 import { ApiProperty } from "@nestjs/swagger"
+import { PageRequestDto, PageResponseDto } from "src/etc/dto/page-dto"
 export class UserDto {
     @ApiProperty()
     @IsOptional()
@@ -51,4 +52,55 @@ export class UserManualQueryDto {
     @ApiProperty()
     @IsOptional()
     condition?: any
+}
+
+export class RequestGetUserCustomDto_WithPage extends PageRequestDto {
+    @ApiProperty({
+        description: 'optional - id autogenerate, hanya untuk pencarian',
+        default: 202112295441296 
+    })
+    @IsNumber()
+    @IsOptional()
+    id: number
+
+    @ApiProperty({
+        description: 'optional - hanya untuk pencarian',
+        default: '' //https://docs.nestjs.com/openapi/types-and-parameters
+    })
+    @IsString()
+    @IsOptional()
+    nama_user: string
+
+    @ApiProperty({
+        description: 'optional - hanya untuk pencarian',
+        default: ''
+    }) 
+    @IsString()
+    @IsOptional()
+    email: string
+
+    @ApiProperty({
+        description: 'optional - hanya untuk pencarian',
+        default: 'ing'
+    }) 
+    @IsString()
+    @IsOptional()
+    username: string
+
+    @ApiHideProperty() 
+    @IsDate()
+    @IsOptional()
+    create_at: string
+
+    @ApiHideProperty() 
+    @IsDate()
+    @IsOptional()
+    update_at: string
+
+}
+
+export class ResponGetUserCustomDto_WithPage extends PageResponseDto {
+    @ApiProperty({ type: [UserDto] })
+    data: UserDto[]
+
 }

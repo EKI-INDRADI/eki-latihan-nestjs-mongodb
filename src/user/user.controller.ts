@@ -1,8 +1,8 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto, UserIdDto, UserManualQueryDto } from './dto/create-user.dto';
+import { CreateUserDto,  RequestGetUserCustomDto_WithPage, ResponGetUserCustomDto_WithPage, UserIdDto, UserManualQueryDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { JwtGuard } from 'src/auth/jwt.guard';
 
 @ApiTags('User')
@@ -12,9 +12,10 @@ export class UserController {
   constructor(private readonly userService: UserService) { }
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) { 
+  create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
+
 
   @ApiBearerAuth()
   @UseGuards(JwtGuard)
@@ -44,6 +45,8 @@ export class UserController {
     return this.userService.remove(get_UserIdDto.id);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtGuard)
   @Post('manual-query')
   async manualQuery(@Body() req_body: UserManualQueryDto) {  //test
     // {
@@ -55,6 +58,12 @@ export class UserController {
     return res_json
   }
 
-
+  // @ApiBearerAuth()
+  // @UseGuards(JwtGuard)
+  @Post('manual-get-custom')
+  @ApiOkResponse({ type: ResponGetUserCustomDto_WithPage })
+  findAll2(@Body() req_body: RequestGetUserCustomDto_WithPage) {
+    return this.userService.findAll2(req_body);
+  }
 
 }

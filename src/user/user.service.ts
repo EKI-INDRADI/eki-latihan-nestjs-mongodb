@@ -1,17 +1,23 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto} from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt'
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { InjectConnection, InjectModel } from '@nestjs/mongoose';
+import { Connection, Model } from 'mongoose';
 import { lastValueFrom } from 'rxjs';
+import { PageService } from 'src/etc/service/page/page.service';
 
 @Injectable()
-export class UserService {
+// export class UserService {
+export class UserService extends PageService {
   constructor(
-    @InjectModel(User.name) private userRepo: Model<User>
-  ) { }
+    @InjectModel(User.name) private userRepo: Model<User>,
+    @InjectConnection() public MongoDbConnection: Connection //kebutuhan PageService & this.generatePage
+  ) {
+    super();
+  }
+
 
   create(createUserDto: CreateUserDto) {
     createUserDto.password = this.hash(createUserDto.password)
@@ -92,6 +98,11 @@ export class UserService {
 
     return res_json
 
+  }
+
+  
+  findAll2(req_body) {
+    return this.generatePage(req_body, User.name, this.MongoDbConnection)
   }
 
 }
