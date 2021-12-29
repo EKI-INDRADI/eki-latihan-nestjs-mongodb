@@ -576,6 +576,8 @@ respose =
 ---------/contoh menggunakan skip-limit
 ```
 
+
+reference : https://docs.nestjs.com/openapi/types-and-parameters
 </details>
 
 
