@@ -7,8 +7,7 @@ import { UserModule } from './user/user.module';
 import { ExistValidator } from './etc/validator/exist-validator';
 import { UniqueValidator } from './etc/validator/unique-validator';
 import { AuthModule } from './auth/auth.module';
-// import { ProdukModule } from './produk/produk.module';
-// import { Produk, ProdukSchema } from './produk/entities/produk.entity';
+
 // import { KonsumenModule } from './konsumen/konsumen.module';
 // import { RekeningModule } from './rekening/rekening.module';
 // import { Konsumen, KonsumenSchema } from './konsumen/entities/konsuman.entity';
@@ -19,17 +18,18 @@ import { AuthModule } from './auth/auth.module';
 // import { PenjualanBayar, PenjualanBayarSchema } from './penjualan/entities/penjualan-bayar.entity';
 // import { PageService } from './etc/service/page/page.service';
 import { MongooseModule } from '@nestjs/mongoose';
+import { Produk, ProdukSchema } from './produk/entities/produk.entity';
+import { ProdukModule } from './produk/produk.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
-
     MongooseModule.forRoot('mongodb://root:masuk123@127.0.0.1:7000/simple_pos?authSource=admin'),
     // MongooseModule.forRoot(`mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.MONGODB_DATABASE}`),
     MongooseModule.forFeature([
       // { name: 'User', schema: UserSchema },
       { name: User.name, schema: UserSchema },
-      // { name: Produk.name, schema: ProdukSchema },
+      { name: Produk.name, schema: ProdukSchema },
       // { name: Konsumen.name, schema: KonsumenSchema },
       // { name: Rekening.name, schema: RekeningSchema },
       // { name: Penjualan.name, schema: PenjualanSchema },
@@ -38,7 +38,7 @@ import { MongooseModule } from '@nestjs/mongoose';
     ]),
     UserModule,
     AuthModule,
-    // ProdukModule,
+    ProdukModule,
     // KonsumenModule,
     // RekeningModule,
     // PenjualanModule

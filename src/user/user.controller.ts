@@ -58,8 +58,8 @@ export class UserController {
     return res_json
   }
 
-  // @ApiBearerAuth()
-  // @UseGuards(JwtGuard)
+  @ApiBearerAuth()
+  @UseGuards(JwtGuard)
   @Post('manual-get-custom')
   @ApiOkResponse({ type: ResponGetUserCustomDto_WithPage })
   findAll2(@Body() req_body: RequestGetUserCustomDto_WithPage) {

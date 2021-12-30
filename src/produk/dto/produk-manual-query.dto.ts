@@ -1,15 +1,15 @@
-import { ApiHideProperty, ApiProperty } from "@nestjs/swagger";
-import { IsNumber, IsObject, IsOptional, Max } from "class-validator";
+import { ApiProperty } from "@nestjs/swagger"
+import { IsNumber, IsObject, IsOptional, IsString, Max } from "class-validator"
 
+export class ProdukManualQueryDto {
 
-export class PageRequestDto {
     @ApiProperty({ description: 'optional - bisa pake page (recomended) atau bisa menggunakan skip (auto handle)', required: false, default: '1 (number) , jangan gunakan page ketika menggunakan skip' })
     @IsNumber()
     @IsOptional()
     page: number //  page: number = 1 (jangan default dari sini mending dari ApiProperty)
 
 
-    @ApiProperty({ description: 'optional - jangan gunakan ketika menggunakan page', required: false , default: '0 (number) , jangan gunakan skip ketika menggunakan page' })
+    @ApiProperty({ description: 'optional - jangan gunakan ketika menggunakan page', required: false, default: '0 (number) , jangan gunakan skip ketika menggunakan page' })
     @IsNumber()
     @IsOptional()
     skip: number
@@ -34,16 +34,29 @@ export class PageRequestDto {
     @IsObject()
     @IsOptional()
     projection: object
-}
 
-export class PageResponseDto {
-    @ApiProperty()
+    @ApiProperty({ required: false, default: 'data' })
+    @IsOptional()
+    @IsString()
+    barcode: string
+
+    @ApiProperty({ required: false, default: '' })
+    @IsOptional()
+    @IsString()
+    nama_produk: string
+
+    @ApiProperty({ required: false, default: '' })
+    @IsOptional()
+    @IsString()
+    deskripsi_produk: string
+
+    @ApiProperty({ required: false, default: 1000 })
+    @IsOptional()
     @IsNumber()
-    total: number
+    harga_beli: number
 
-    @ApiProperty()
+    @ApiProperty({ required: false, default: 1500 })
+    @IsOptional()
     @IsNumber()
-    pages: number
+    harga_jual: number
 }
-
-

@@ -581,6 +581,37 @@ reference : https://docs.nestjs.com/openapi/types-and-parameters
 </details>
 
 
+<details>
+  <summary>20211230-0046-MYSQL-TO-MONGODB-006</summary>
+
+```bash
+
+update produk (sudah di migrasi menggunakan Mongoose dan
+fungsi sama persis dengan TypeORM)
+
+update src\produk\entities\produk.entity.ts
+
+update src\produk\produk.module.ts
+
+update src\produk\dto\create-produk.dto.ts
+
+update src\produk\dto\update-produk.dto.ts
+
+update src\produk\dto\produk-manual-query.dto.ts
+
+update src\produk\produk.service.ts
+
+update src\produk\produk.controller.ts
+
+update src\app.module.ts
+
+update src\etc\decorator\inject-user.decorator.ts
+
+update src\etc\dto\page-dto.ts
+
+```
+</details>
+
 ## ==== / STAGE 11 = MIGRATION MYSQL TO MONGODB
 
 
