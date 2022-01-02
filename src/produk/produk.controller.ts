@@ -29,8 +29,8 @@ export class ProdukController {
           + ("0" + (new Date().getMonth() + 1)).slice(-2)
           + ("0" + new Date().getDate()).slice(-2) + "-"
           + "USR" + number_user_id.toString().padStart((String(number_user_id).length > 4) ? String(number_user_id).length : 4, '0') 
-          // + "-"
-          // + Date.now()
+          + "-"
+          + Date.now()
 
         cb(null, eki_auto_generate + extname(file.originalname))
       }
@@ -65,8 +65,8 @@ export class ProdukController {
           + ("0" + (new Date().getMonth() + 1)).slice(-2)
           + ("0" + new Date().getDate()).slice(-2) + "-"
           + "USR" + number_user_id.toString().padStart((String(number_user_id).length > 4) ? String(number_user_id).length : 4, '0') 
-          // + "-"
-          // + Date.now()
+          + "-"
+          + Date.now()
         cb(null, eki_auto_generate + extname(file.originalname))
       }
     })

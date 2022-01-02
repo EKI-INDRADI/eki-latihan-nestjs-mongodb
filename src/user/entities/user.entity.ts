@@ -112,7 +112,7 @@ export const UserSchema = SchemaFactory.createForClass(User);
 
 
 
-// import { Konsuman } from "src/konsumen/entities/konsuman.entity";
+// import { Konsumen } from "src/konsumen/entities/Konsumen.entity";
 // import { Produk } from "src/produk/entities/produk.entity";
 // import { Rekening } from "src/rekening/entities/rekening.entity";
 // import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
@@ -157,8 +157,8 @@ export const UserSchema = SchemaFactory.createForClass(User);
 //     @OneToMany(() => Produk, data => data.id)
 //     produk: Produk
 
-//     @OneToMany(() => Konsuman, data => data.id) // (yang di generate adalah Konsumen) tetapi classnya Konsuman, entities\konsuman.entity.ts  
-//     konsumen: Konsuman  //ini adalah kesalahan dari nest, kemungkinan karena auto checking english translate men jadi man
+//     @OneToMany(() => Konsumen, data => data.id) // (yang di generate adalah Konsumen) tetapi classnya Konsumen, entities\Konsumen.entity.ts  
+//     konsumen: Konsumen  //ini adalah kesalahan dari nest, kemungkinan karena auto checking english translate men jadi man
 
 //     @OneToMany(() => Rekening, data => data.id) 
 //     rekening: Rekening  

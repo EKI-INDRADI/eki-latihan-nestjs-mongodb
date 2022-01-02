@@ -11,13 +11,14 @@ export class UserDto {
     @IsExist([User.name, 'id'])
     id?: number
 
-    @ApiProperty({ required: true })
+    @ApiProperty({ required: true, default: 'eki testing' })
     @IsString()
     @MaxLength(64)
     @MinLength(8)
     @IsNotEmpty()
     nama_user: string
 
+    @ApiProperty({ default: 'ekitesting@mail.com' })
     @IsEmail()
     @IsUnique([User.name, 'email'])
     @MaxLength(32)
@@ -25,6 +26,7 @@ export class UserDto {
     @IsNotEmpty()
     email: string
 
+    @ApiProperty({ default: 'ekitesting' })
     @IsString()
     @MaxLength(32)
     @MinLength(8)
@@ -32,6 +34,7 @@ export class UserDto {
     @IsUnique([User.name, 'username']) // sama aja @IsUnique(['User', 'username'])
     username: string
 
+    @ApiProperty({ default: 'masuk123' })
     @IsString()
     @MaxLength(32)
     @MinLength(8)
@@ -57,7 +60,7 @@ export class UserManualQueryDto {
 export class RequestGetUserCustomDto_WithPage extends PageRequestDto {
     @ApiProperty({
         description: 'optional - id autogenerate, hanya untuk pencarian',
-        default: 202112295441296 
+        default: 202112295441296
     })
     @IsNumber()
     @IsOptional()
@@ -74,7 +77,7 @@ export class RequestGetUserCustomDto_WithPage extends PageRequestDto {
     @ApiProperty({
         description: 'optional - hanya untuk pencarian',
         default: ''
-    }) 
+    })
     @IsString()
     @IsOptional()
     email: string
@@ -82,17 +85,17 @@ export class RequestGetUserCustomDto_WithPage extends PageRequestDto {
     @ApiProperty({
         description: 'optional - hanya untuk pencarian',
         default: 'ing'
-    }) 
+    })
     @IsString()
     @IsOptional()
     username: string
 
-    @ApiHideProperty() 
+    @ApiHideProperty()
     @IsDate()
     @IsOptional()
     create_at: string
 
-    @ApiHideProperty() 
+    @ApiHideProperty()
     @IsDate()
     @IsOptional()
     update_at: string

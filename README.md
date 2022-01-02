@@ -612,6 +612,31 @@ update src\etc\dto\page-dto.ts
 ```
 </details>
 
+
+<details>
+  <summary>20220102-0046-MYSQL-TO-MONGODB-007</summary>
+
+```bash
+
+update konsumen & rekening (sudah di migrasi menggunakan Mongoose dan
+fungsi sama persis dengan TypeORM)
+
+update src\konsumen\*  [done]
+update src\app.module.ts [done]
+
+update src\rekening\*  [done]
+update src\app.module.ts  [done]
+
+update src\penjualan\*  [inprogress] // perlu check auto schema relation
+update src\penjualan\*bayar*  [inprogress] // perlu check auto schema relation
+update src\penjualan\*item*  [inprogress] // perlu check auto schema relation
+update src\app.module.ts [inprogress] // perlu check auto schema relation
+
+
+
+```
+</details>
+
 ## ==== / STAGE 11 = MIGRATION MYSQL TO MONGODB
 
 
