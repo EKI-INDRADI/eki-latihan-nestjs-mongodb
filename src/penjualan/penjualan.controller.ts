@@ -7,8 +7,8 @@ import { PenjualanProses } from './penjualan-proses.decorator';
 import { JwtGuard } from 'src/auth/jwt.guard';
 import { ResponProdukDto } from 'src/produk/dto/create-produk.dto';
 import { CreatePenjualanItemDto } from './dto/penjualan-item.dto';
-import { CreatePenjualanBayarDto } from './dto/penjualan-bayar.dto';
 import { InjectUser } from 'src/etc/decorator/inject-user.decorator';
+import { CreatePenjualanBayarDto } from './dto/penjualan-bayar.dto';
 
 @ApiTags('Penjualan')
 @ApiBearerAuth()
