@@ -2,29 +2,20 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
 
-// import { User } from 'src/user/entities/user.entity'; // BUG FIX
-// import { InjectRepository } from '@nestjs/typeorm'; // BUG FIX
-// import { Repository } from 'typeorm'; // BUG FIX
-
 @Injectable()
-export class AuthService { // services ini digunakan untuk melakukan pengecekan login valid / tidak
+export class AuthService { 
     constructor(
         private userService: UserService,
-        private jwtService: JwtService, // untuk generate token
-
-        // private userRepo: Repository<User> // BUG FIX
-        // @InjectRepository(User) private userRepo: Repository<User> // BUG FIX
+        private jwtService: JwtService, 
     ) {
 
     }
 
-
-    // function untuk cek user
     async checkUser(username, password) {
         let user = await this.userService.findUsername(username)
        
         if (user) {
-            const valid = this.userService.compare(password, user.password)  // tidak perlu await karena sudah menggunakan bcrypt.compareSync pada services/function nya
+            const valid = this.userService.compare(password, user.password)  
             if (valid) {
                 return user
             } else {
@@ -38,7 +29,7 @@ export class AuthService { // services ini digunakan untuk melakukan pengecekan 
 
 
     generateToken(user: any) {
-        let dataToken = { id: user.id, tampilkan_semua_payload: user } /// contoh payload JWT
+        let dataToken = { id: user.id, user_payload: user.user_payload } 
         let token = this.jwtService.sign(dataToken)
         return { token: token }
     }

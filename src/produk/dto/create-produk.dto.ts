@@ -1,9 +1,9 @@
 import { ApiHideProperty, ApiProperty, OmitType, PickType } from "@nestjs/swagger"
-import { IsDate, IsNotEmpty, IsNumber, IsObject, IsOptional, IsString } from "class-validator"
+import { IsDate, IsNotEmpty, IsNumber, IsObject, IsOptional, IsString, ValidateNested } from "class-validator"
 import { PageRequestDto, PageResponseDto } from "src/etc/dto/page-dto"
 import { IsExist } from "src/etc/validator/exist-validator"
 import { IsUnique } from "src/etc/validator/unique-validator"
-import { UserDto } from "src/user/dto/create-user.dto"
+import { UserDto, UserDtoRelation } from "src/user/dto/create-user.dto"
 import { Produk } from "../entities/produk.entity"
 
 export class ProdukDto {
@@ -44,7 +44,7 @@ export class ProdukDto {
 
     @ApiHideProperty() 
     @IsObject()  
-    user: UserDto 
+    user: UserDtoRelation //    user: UserDto 
 }
 export class CreateProdukDto extends OmitType(ProdukDto, ['id']) { } 
 export class ProdukIdDto extends PickType(ProdukDto, ['id']) { } 
@@ -80,4 +80,56 @@ export class ResponProdukDto extends PageResponseDto {
     @ApiProperty({type : [ProdukDto]})
     data : ProdukDto[]
 
+}
+
+export class ProdukDtoRelation {
+    @ApiProperty() //swagger
+    @IsExist([Produk, 'id'])
+    @IsNumber()
+    id?: number
+
+    @ApiProperty()
+    @IsExist([Produk, 'barcode'])
+    // @IsUnique([Produk, 'barcode'])
+    @IsString()
+    @IsNotEmpty()
+    barcode: string
+
+    @ApiProperty()
+    @IsString()
+    @IsNotEmpty()
+    nama_produk: string
+
+    @ApiProperty()
+    @IsString()
+    @IsNotEmpty()
+    deskripsi_produk: string
+
+    @ApiProperty()
+    @IsNumber()
+    @IsNotEmpty()
+    harga_beli: number
+
+    @ApiProperty()
+    @IsNumber()
+    @IsNotEmpty()
+    harga_jual: number
+
+    @ApiProperty({ format: 'binary' })  
+    @IsOptional() 
+    foto: string
+
+    @ApiProperty()
+    @IsOptional()   
+    @IsObject()
+    @ValidateNested()
+    user: UserDtoRelation 
+
+    @ApiProperty()
+    @IsDate()
+    create_at : Date
+
+    @ApiProperty()
+    @IsDate()
+    update_at : Date
 }

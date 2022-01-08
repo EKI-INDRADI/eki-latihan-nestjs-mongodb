@@ -3,7 +3,7 @@ import { IsEmail, IsNotEmpty, IsObject, IsOptional, IsString, Max, MaxLength, Mi
 import { PageRequestDto, PageResponseDto } from "src/etc/dto/page-dto"
 import { IsExist } from "src/etc/validator/exist-validator"
 import { IsUnique } from "src/etc/validator/unique-validator"
-import { UserDto } from "src/user/dto/create-user.dto"
+import { UserDto, UserDtoRelation } from "src/user/dto/create-user.dto"
 import { Konsumen } from "../entities/konsumen"
 
 export class KonsumenDto {
@@ -39,7 +39,7 @@ export class KonsumenDto {
 
     @ApiHideProperty() 
     @IsObject()  
-    user: UserDto 
+    user: UserDtoRelation //    user: UserDto 
 }
 export class CreateKonsumenDto extends OmitType(KonsumenDto, ['id']) { } // buang id
 export class KonsumenId extends PickType(KonsumenDto, ['id']) { } // hanya ambil id

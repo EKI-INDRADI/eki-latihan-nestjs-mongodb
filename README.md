@@ -637,6 +637,56 @@ update src\app.module.ts [inprogress] // perlu check auto schema relation
 ```
 </details>
 
+
+<details>
+  <summary>20220108-0046-MYSQL-TO-MONGODB-008</summary>
+
+```bash
+update user payload (jwt login)
+update src\auth\auth.controller.ts
+update src\auth\auth.service.ts
+update src\auth\jwt.strategy.ts
+
+Inject user payload to req.body [DONE]
+
+update src\produk\dto\create-produk.dto.ts (ProdukDtoRelation + @ValidateNested())
+update src\penjualan\dto\penjualan-item.dto.ts ( @ValidateNested())
+update src\user\dto\create-user.dto.ts (UserDtoRelation + @ValidateNested())
+update src\penjualan\penjualan.controller.ts(@InjectUser() CreatePenjualanItemDto)
+
+Penjualan Item [DONE]
+
+
+update src\penjualan\dto\penjualan-bayar.dto.ts
+update src\penjualan\penjualan.controller.ts(@InjectUser() CreatePenjualanItemDto)
+
+Penjualan Bayar [PARTIAL DONE]
+
+update all dto 
+
+user: UserDto  -> user: UserDtoRelation (biar data lebih komplit)
+
+update src\produk\dto\create-produk.dto.ts
+update src\konsumen\dto\create-konsumen.dto.ts
+update src\konsumen\dto\update-konsumen.dto.ts
+update src\penjualan\dto\create-penjualan.dto.ts
+update src\rekening\dto\create-rekening.dto.ts
+
+Rekening [DONE]
+
+update src\penjualan\dto\penjualan-bayar.dto.ts
+update src\penjualan\penjualan.controller.ts(@InjectUser() CreatePenjualanBayarDto)
+
+Penjualan Bayar [DONE]
+
+
+next update terkahir Penjualan [INPROGRESS]
+
+```
+
+</details>
+
+
 ## ==== / STAGE 11 = MIGRATION MYSQL TO MONGODB
 
 

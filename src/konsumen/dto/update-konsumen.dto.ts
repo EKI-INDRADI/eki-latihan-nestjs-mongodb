@@ -1,6 +1,6 @@
 import { ApiHideProperty, ApiProperty, PartialType } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, IsObject, IsString, MaxLength, MinLength } from 'class-validator';
-import { UserDto } from 'src/user/dto/create-user.dto';
+import { UserDto, UserDtoRelation } from 'src/user/dto/create-user.dto';
 // import { KonsumenDto } from './create-konsumen.dto';
 
 // export class UpdateKonsumenDto extends PartialType(KonsumenDto) {}
@@ -34,5 +34,5 @@ export class UpdateKonsumenDto {
 
     @ApiHideProperty() 
     @IsObject()  
-    user: UserDto
+    user: UserDtoRelation //    user: UserDto 
 }

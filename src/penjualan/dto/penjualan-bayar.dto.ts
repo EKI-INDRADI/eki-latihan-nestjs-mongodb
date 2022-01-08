@@ -1,13 +1,14 @@
 import { ApiHideProperty, ApiProperty, OmitType } from "@nestjs/swagger"
 import { IsDate, IsNumber, IsObject, IsOptional, ValidateNested } from "class-validator"
-// import { RekeningIdDto } from "src/rekening/dto/create-rekening.dto"
-import { UserDto } from "src/user/dto/create-user.dto"
+import { RekeningDtoRelation } from "src/rekening/dto/create-rekening.dto"
+import { UserDto, UserDtoRelation } from "src/user/dto/create-user.dto"
+import { Penjualan } from "../entities/penjualan.entity"
 
 
 export class PenjualanBayarDto {
     @ApiHideProperty()
     @IsOptional()
-    id: number
+    id?: number
 
     @ApiProperty()
     @IsDate()
@@ -17,14 +18,22 @@ export class PenjualanBayarDto {
     @IsNumber()
     jumlah_bayar: number
 
-    // @ApiProperty({ type: RekeningIdDto })
+    // @ApiProperty({ type: Penjualan })
     // @IsObject()
     // @ValidateNested()
-    // rekening: RekeningIdDto
+    // penjualan: Penjualan
+
+    @ApiProperty({ type: RekeningDtoRelation })
+    @IsObject()
+    @ValidateNested()
+    rekening: RekeningDtoRelation
+
+
+
 
     @ApiHideProperty()
     @IsObject()
-    user: UserDto
+    user: UserDtoRelation
 
 }
 

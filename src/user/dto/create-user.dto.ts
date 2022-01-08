@@ -107,3 +107,51 @@ export class ResponGetUserCustomDto_WithPage extends PageResponseDto {
     data: UserDto[]
 
 }
+
+
+export class UserDtoRelation {
+    @ApiProperty()
+    @IsOptional()
+    @IsExist([User.name, 'id'])
+    id?: number
+
+    @ApiProperty()
+    @IsString()
+    @MaxLength(64)
+    @MinLength(8)
+    @IsNotEmpty()
+    nama_user: string
+
+    @ApiProperty()
+    @IsEmail()
+    // @IsUnique([User.name, 'email'])
+    @IsExist([User.name, 'email'])
+    @MaxLength(32)
+    @MinLength(6)
+    @IsNotEmpty()
+    email: string
+
+    @ApiProperty()
+    @IsString()
+    @MaxLength(32)
+    @MinLength(8)
+    @IsNotEmpty()
+    // @IsUnique([User.name, 'username']) 
+    @IsExist([User.name, 'username']) 
+    username: string
+
+    // @ApiProperty()
+    // @IsString()
+    // @MaxLength(32)
+    // @MinLength(8)
+    // @IsNotEmpty()
+    // password: string 
+
+    @ApiProperty()
+    @IsDate()
+    create_at : Date
+
+    @ApiProperty()
+    @IsDate()
+    update_at : Date
+}

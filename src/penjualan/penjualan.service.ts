@@ -40,21 +40,21 @@ export class PenjualanService extends PageService { // pagenation
 
   async findOne(id: number) {
 
-    let result = await this.penjualanRepo.findOne({id : id})
+    let result = await this.penjualanRepo.findOne({ id: id })
     if (result) {
       return result
     } else {
       return ({ message: "data not found" })
     }
-  
+
   }
 
   update(id: number, updatePenjualanDto: UpdatePenjualanDto) {
     updatePenjualanDto.id = id
-    return this.penjualanRepo.updateOne({id : id}, updatePenjualanDto)
+    return this.penjualanRepo.updateOne({ id: id }, updatePenjualanDto)
   }
 
   async remove(id: number) {
-    return this.penjualanRepo.deleteOne({id : id})
+    return this.penjualanRepo.deleteOne({ id: id })
   }
 }

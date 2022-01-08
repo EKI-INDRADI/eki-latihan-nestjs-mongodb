@@ -1,7 +1,7 @@
 import { ApiHideProperty, ApiProperty, OmitType } from "@nestjs/swagger"
 import { IsNumber, IsObject, IsOptional, Min, ValidateNested } from "class-validator"
-import { ProdukDto, ProdukIdDto } from "src/produk/dto/create-produk.dto"
-import { CreateUserDto, UserDto, UserIdDto } from "src/user/dto/create-user.dto"
+import { ProdukDto, ProdukDtoRelation, ProdukIdDto } from "src/produk/dto/create-produk.dto"
+import { CreateUserDto, UserDto, UserDtoRelation, UserIdDto } from "src/user/dto/create-user.dto"
 
 export class PenjualanItemDto {
     @ApiHideProperty()
@@ -21,14 +21,20 @@ export class PenjualanItemDto {
     @IsNumber()
     potongan: number
     
-    @ApiProperty({type:ProdukDto})
+    @ApiProperty({type:ProdukDtoRelation})
     @IsObject()
     @ValidateNested()
-    produk: ProdukDto
+    produk: ProdukDtoRelation
     
+    // @ApiHideProperty()
+    // @IsObject()
+    // user: UserDto
+
+    // @ApiProperty({type:UserDtoRelation}) // gak perlu manual input sudah di inject @InjectUser()
     @ApiHideProperty()
     @IsObject()
-    user: UserDto
+    // @ValidateNested() // ga perlu validasi schema (data pasti benar)
+    user: UserDtoRelation
 }
 
 

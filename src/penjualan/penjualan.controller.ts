@@ -8,6 +8,7 @@ import { JwtGuard } from 'src/auth/jwt.guard';
 import { ResponProdukDto } from 'src/produk/dto/create-produk.dto';
 import { CreatePenjualanItemDto } from './dto/penjualan-item.dto';
 import { CreatePenjualanBayarDto } from './dto/penjualan-bayar.dto';
+import { InjectUser } from 'src/etc/decorator/inject-user.decorator';
 
 @ApiTags('Penjualan')
 @ApiBearerAuth()
@@ -25,36 +26,13 @@ export class PenjualanController {
 
   @Post('item')
   @ApiBody({ type: CreatePenjualanItemDto })
-  createItem(createPenjualanItemDto: CreatePenjualanItemDto) { // biar otomatis kalkulasi // create(@Body() createPenjualanDto: CreatePenjualanDto) {
-    let example = {
-      "jumlah_jual": 1,
-      "harga_jual": 2500,
-      "potongan": 500,
-      "produk": {
-        "user": {
-          "nama_user": "eki testing",
-          "id": 202201020443278,
-          "update_at": "2022-01-02T21:11:54.139+07:00",
-          "create_at": "2022-01-02T21:11:54.139+07:00"
-        },
-        "foto": "PD20220102-USR202201020443278-1641132714125.png",
-        "harga_jual": 2000,
-        "harga_beli": 1500,
-        "deskripsi_produk": "TESTING-001-DESC",
-        "nama_produk": "TESTING-001-PRODUK",
-        "barcode": "TESTING-001",
-        "update_at": "2022-01-02T21:11:54.140+07:00",
-        "create_at": "2022-01-02T21:11:54.140+07:00",
-        "id": 202201021154140
-      }
-    }
-
+  createItem(@InjectUser()  createPenjualanItemDto: CreatePenjualanItemDto) {
     return this.penjualanService.createItem(createPenjualanItemDto);
   }
 
   @Post('bayar')
   @ApiBody({ type: CreatePenjualanBayarDto })
-  createBayar(createPenjualanBayarDto: CreatePenjualanBayarDto) { // biar otomatis kalkulasi // create(@Body() createPenjualanDto: CreatePenjualanDto) {
+  createBayar(@InjectUser() createPenjualanBayarDto: CreatePenjualanBayarDto) { // biar otomatis kalkulasi // create(@Body() createPenjualanDto: CreatePenjualanDto) {
     return this.penjualanService.createBayar(createPenjualanBayarDto);
   }
 

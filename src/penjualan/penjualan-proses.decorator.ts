@@ -25,5 +25,6 @@ export const PenjualanProses = createParamDecorator((data: any, ctx: ExecutionCo
     req.body.total_potongan = total_potongan
     req.body.total_bayar = total_bayar
 
+
     return req.body
 })

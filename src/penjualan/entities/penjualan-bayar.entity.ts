@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Rekening } from "src/rekening/entities/rekening.entity";
 // import { Rekening } from "src/rekening/entities/rekening.entity";
 import { User } from "src/user/entities/user.entity";
 import { Penjualan } from "./penjualan.entity";
@@ -26,11 +27,11 @@ export class PenjualanBayar {
     @Prop()
     jumlah_bayar : number
 
-    @Prop()
-    penjualan: Penjualan 
+    // @Prop()
+    // penjualan: Penjualan 
 
-    // @ManyToOne(() => Rekening, data => data.id)
-    // rekening: Rekening 
+    @Prop()
+    rekening: Rekening 
 
     @Prop({ type: Date, default: () => Date.now() })
     create_at: Date
