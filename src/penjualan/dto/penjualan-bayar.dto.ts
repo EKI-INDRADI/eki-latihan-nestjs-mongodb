@@ -28,9 +28,6 @@ export class PenjualanBayarDto {
     @ValidateNested()
     rekening: RekeningDtoRelation
 
-
-
-
     @ApiHideProperty()
     @IsObject()
     user: UserDtoRelation
@@ -38,3 +35,27 @@ export class PenjualanBayarDto {
 }
 
 export class CreatePenjualanBayarDto extends OmitType(PenjualanBayarDto, ['id']) { }
+
+export class PenjualanBayarDtoRelation {
+    @ApiHideProperty()
+    @IsOptional()
+    id?: number
+
+    @ApiProperty()
+    @IsDate()
+    tanggal_bayar: Date
+
+    @ApiProperty()
+    @IsNumber()
+    jumlah_bayar: number
+
+    @ApiProperty({ type: RekeningDtoRelation })
+    @IsObject()
+    @ValidateNested()
+    rekening: RekeningDtoRelation
+
+    @ApiProperty({ type: UserDtoRelation })
+    @IsObject()
+    user: UserDtoRelation
+
+}

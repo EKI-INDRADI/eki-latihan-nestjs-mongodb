@@ -687,6 +687,27 @@ next update terkahir Penjualan [INPROGRESS]
 </details>
 
 
+
+<details>
+  <summary>20220109-0046-MYSQL-TO-MONGODB-009</summary>
+
+```bash
+
+update src\konsumen\dto\create-konsumen.dto.ts (KonsumenDtoRelation)
+update src\penjualan\dto\penjualan-item.dto.ts (PenjualanItemDtoRelation)
+update src\penjualan\dto\penjualan-bayar.dto.ts (PenjualanBayarDtoRelation)
+update src\penjualan\penjualan-proses.decorator.ts (inject PenjualanProses)
+
+example parameter penjualan :
+
+src\penjualan\dto\penjualan-item.dto.CreatePenjualanItemDto.ex.json
+src\penjualan\dto\penjualan-bayar.dto.CreatePenjualanBayarDto.ex.json
+src\penjualan\dto\create-penjualan.dto.CreatePenjualanDto.ex.json
+
+Finish
+```
+</details>
+
 ## ==== / STAGE 11 = MIGRATION MYSQL TO MONGODB
 
 
@@ -703,7 +724,10 @@ stage 9 - migrasi MySql to PostgreSql
 
 stage 10 - migrasi express adapter nestjs to fastify adapter nestjs
 
-stage 11 - migrasi MySql (TypeORM) to Mongodb (Moongose) [INPROGRESS]
+stage 11 - migrasi MySql (TypeORM) to Mongodb (Moongose) [DONE]
+
+stage 12 - migrasi express adapter nestjs Moongose to fastify adapter nestjs Moongose [INPROGRESS]
+
 
  
 ## REFERENSI :
@@ -737,8 +761,8 @@ https://github.com/EKI-INDRADI/eki-latihan-nestjs-postgresql
 https://github.com/EKI-INDRADI/eki-latihan-nestjs-fastify-postgresql 
 
 https://github.com/EKI-INDRADI/eki-latihan-docker-mongodb
-https://github.com/EKI-INDRADI/eki-latihan-nestjs-mongodb (INPROGRESS)
-https://github.com/EKI-INDRADI/eki-latihan-nestjs-fastify-mongodb (WAITING LIST)
+https://github.com/EKI-INDRADI/eki-latihan-nestjs-mongodb
+https://github.com/EKI-INDRADI/eki-latihan-nestjs-fastify-mongodb
 
 ```
 

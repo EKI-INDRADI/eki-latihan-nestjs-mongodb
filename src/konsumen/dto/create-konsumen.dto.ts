@@ -71,3 +71,39 @@ export class ResponseKonsumenDto extends PageResponseDto{
     @ApiProperty({type : [KonsumenDto]})
     data : KonsumenDto[]
 }
+
+export class KonsumenDtoRelation {
+    @ApiProperty()
+    @IsExist([Konsumen, 'id'])
+    id: number
+
+    @ApiProperty({ default: 'ekitesting' })
+    @IsString()
+    @IsNotEmpty()
+    @IsExist([Konsumen, 'nama_konsumen'])
+    nama_konsumen: string
+
+    @ApiProperty({ default: 'jl. ekitesting' })
+    @IsString()
+    @IsNotEmpty()
+    alamat_konsumen: string
+
+    @ApiProperty({ default: 'ekitesting@mail.com' })
+    @IsString()
+    @IsEmail()
+    @IsNotEmpty()
+    @IsExist([Konsumen, 'email_konsumen'])
+    email_konsumen: string
+
+    @ApiProperty({ default: '+628000000001' })
+    @IsString()
+    @IsNotEmpty()
+    @IsExist([Konsumen, 'no_hp_konsumen'])
+    @MinLength(10)
+    @MaxLength(13)
+    no_hp_konsumen: string
+
+    @ApiProperty()
+    @IsObject()  
+    user: UserDtoRelation 
+}

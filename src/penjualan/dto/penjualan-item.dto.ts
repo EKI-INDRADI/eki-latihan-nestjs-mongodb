@@ -39,3 +39,32 @@ export class PenjualanItemDto {
 
 
 export class CreatePenjualanItemDto extends OmitType(PenjualanItemDto, ['id']) { }
+
+
+export class PenjualanItemDtoRelation {
+    @ApiHideProperty()
+    @IsOptional()
+    id: number
+    
+    @ApiProperty()
+    @Min(1)
+    @IsNumber()
+    jumlah_jual: number
+    
+    @ApiProperty()
+    @IsNumber()
+    harga_jual: number
+    
+    @ApiProperty()
+    @IsNumber()
+    potongan: number
+    
+    @ApiProperty({type:ProdukDtoRelation})
+    @IsObject()
+    @ValidateNested()
+    produk: ProdukDtoRelation
+
+    @ApiProperty({type:UserDtoRelation}) 
+    @IsObject()
+    user: UserDtoRelation
+}

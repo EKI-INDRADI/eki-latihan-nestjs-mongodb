@@ -5,7 +5,12 @@ import { createParamDecorator, ExecutionContext, SetMetadata } from '@nestjs/com
 
 export const PenjualanProses = createParamDecorator((data: any, ctx: ExecutionContext) => {
     const req = ctx.switchToHttp().getRequest()
-    let user = { id: req.user.id }
+
+    let user_prepare = { ... req.user.payload_login }
+    delete user_prepare._id
+    delete user_prepare.__v
+
+    let user = user_prepare
     req.body.user = user
     let total_transaksi = 0
     let total_potongan = 0
@@ -13,12 +18,10 @@ export const PenjualanProses = createParamDecorator((data: any, ctx: ExecutionCo
     req.body.item.forEach(req_body_item_arr => {
         total_transaksi += parseFloat(req_body_item_arr.jumlah_jual) * parseFloat(req_body_item_arr.harga_jual)
         total_potongan += parseFloat(req_body_item_arr.potongan)
-        req_body_item_arr.user = user
     })
 
     req.body.bayar.forEach(req_body_bayar_arr => {
         total_bayar += parseFloat(req_body_bayar_arr.jumlah_bayar)
-        req_body_bayar_arr.user = user
     })
 
     req.body.total_transaksi = total_transaksi
